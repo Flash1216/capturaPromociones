@@ -1,0 +1,82 @@
+{"properties": [
+  {
+    "name": "app.name",
+    "type": "java.lang.String",
+    "description": "A description for 'app.name'"
+  },
+  {
+    "name": "app.desc",
+    "type": "java.lang.String",
+    "description": "A description for 'app.desc'"
+  },
+  {
+    "name": "app.developer",
+    "type": "java.lang.String",
+    "description": "A description for 'app.developer'"
+  },
+  {
+    "name": "app.release",
+    "type": "java.lang.String",
+    "description": "A description for 'app.release'"
+  },
+  {
+    "name": "app.user",
+    "type": "java.lang.String",
+    "description": "A description for 'app.user'"
+  },
+  {
+    "name": "app.version",
+    "type": "java.lang.String",
+    "description": "A description for 'app.version'"
+  },
+  {
+    "name": "jdbc.name",
+    "type": "java.lang.String",
+    "description": "A description for 'jdbc.name'"
+  },
+  {
+    "name": "jdbc.packages",
+    "type": "java.lang.String",
+    "description": "A description for 'jdbc.packages'"
+  },
+  {
+    "name": "jdbc.password",
+    "type": "java.lang.String",
+    "description": "A description for 'jdbc.password'"
+  },
+  {
+    "name": "jdbc.show.sql",
+    "type": "java.lang.String",
+    "description": "A description for 'jdbc.show.sql'"
+  },
+  {
+    "name": "jdbc.url",
+    "type": "java.lang.String",
+    "description": "A description for 'jdbc.url'"
+  },
+  {
+    "name": "jdbc.user",
+    "type": "java.lang.String",
+    "description": "A description for 'jdbc.user'"
+  },
+  {
+    "name": "proxy.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'proxy.enabled'"
+  },
+  {
+    "name": "proxy.server",
+    "type": "java.lang.String",
+    "description": "A description for 'proxy.server'"
+  },
+  {
+    "name": "resources.url",
+    "type": "java.lang.String",
+    "description": "A description for 'resources.url'"
+  },
+  {
+    "name": "server.ip",
+    "type": "java.lang.String",
+    "description": "A description for 'server.ip'"
+  }
+]}

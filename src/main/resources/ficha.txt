@@ -1,0 +1,29 @@
+- Desarrollador:
+
+- URL de documento de acceso público
+
+- Descripción y/o finalidad del proyecto:
+  
+- Detalle técnico:
+	Lenguaje: 		Java 11
+	Tomcat:			9
+	Plantilla:		4.1
+
+-Notas:
+	
+-Proyectos relacionados:
+	
+-Objetos de base de datos relacionados:
+	Esquema: 	
+	Paquetes: 
+	Tablas:
+			
+- Código fuente:	
+
+- Despliegue QA:
+	
+- Despliegue Productivo:	
+	IP:
+	Proxy
+
+=== Pendientes: ========================== 
