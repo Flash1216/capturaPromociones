@@ -14,4 +14,6 @@ public class Constants
 	/*Estatus de proceso*/
 	public static final int ERROR								= -1;
 	public static final String FALTAN_PARAMETROS				= "Faltan parámetros de entrada";
+	
+	
 }

@@ -150,6 +150,28 @@ public class AppConfig implements WebMvcConfigurer
 		return appInfo;
 	}
 	
+	
+//	@Bean 
+//	public TareasProgramadas tareasProgramadasBean()
+//	{
+//		return new TareasProgramadas();
+//	}
+//	
+//	@Override
+//	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) 
+//	{
+//		taskRegistrar.setScheduler(poolScheduler());
+//	}
+//	@Bean(name="poolScheduler")
+//    public TaskScheduler poolScheduler() 
+//	{
+//        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+//        scheduler.setThreadNamePrefix("poolScheduler");
+//        scheduler.setPoolSize(15);
+//        scheduler.setWaitForTasksToCompleteOnShutdown(false);
+//        return scheduler;
+//    }
+	
 	public static void main(String[] args) 
 	{
 		SpringApplication.run(AppConfig.class, args);
