@@ -60,6 +60,12 @@ var cap = {};
 			case 'C':
 				iconFormatt = "<span><i class='fa fa-square' style='color: red' aria-hidden='true'></i> "+ estDesc +" </span>";
 				break;
+			case 'I':
+				iconFormatt = "<span><i class='fa fa-square' style='color: yellow' aria-hidden='true'></i> "+ estDesc +" </span>";
+				break;
+			case 'R':
+				iconFormatt = "<span><i class='fa fa-square' style='color: grey' aria-hidden='true'></i> "+ estDesc +" </span>";
+				break;
 		}
 		return iconFormatt;
 	}
@@ -94,7 +100,7 @@ var cap = {};
 			callback:(r) =>
 				{
 					app.table.cap.setData(r.capRegProm);
-					psDialog.info("REGISTROS ACTUALIZADOS");
+					psDialog.info("Informacion Actualizada.");
 				}
 		}).always(function(){
 			loading.close();

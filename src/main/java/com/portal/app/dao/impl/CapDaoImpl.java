@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.portal.app.dao.CapDao;
 import com.portal.app.dto.CapRegPromDTO;
+import com.portal.app.dto.RegPromGetDto;
 import com.portal.app.request.RegistrarPromocionesRequest;
 
 @Repository
@@ -28,7 +29,8 @@ public class CapDaoImpl implements CapDao {
 	@Autowired	private SessionFactory 	session;
 	@SuppressWarnings("unused")
 	@Autowired	private Environment		env;
-
+	String statusActivo = "A";
+	
 	@Override
 	public List<CapRegPromDTO> getRegister(RegistrarPromocionesRequest request) {
 		// TODO Auto-generated method stub
@@ -85,6 +87,19 @@ public class CapDaoImpl implements CapDao {
 			} 
 		} 
 		
+		log.debug("Datos Response: " + new Gson().toJson(result));
+		 
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RegPromGetDto> getPromoActivas() 
+	{
+		Criteria crit = session.getCurrentSession().createCriteria(RegPromGetDto.class);
+		crit.add(Restrictions.eq("cap_est_str", statusActivo));
+		List<RegPromGetDto> result = new ArrayList<>();
+		result = crit.list();
 		log.debug("Datos Response: " + new Gson().toJson(result));
 		 
 		return result;

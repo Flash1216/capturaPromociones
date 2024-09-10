@@ -17,20 +17,28 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.portal.app.util.AppInfo;
 
+@EnableScheduling
 @EnableTransactionManagement
 @SpringBootApplication
 @EnableAutoConfiguration(exclude={	DataSourceAutoConfiguration.class,
 									DataSourceTransactionManagerAutoConfiguration.class,
 									HibernateJpaAutoConfiguration.class})
-public class AppConfig implements WebMvcConfigurer
+@PropertySource("classpath:/promociones/${spring.profiles.active}.properties")
+public class AppConfig implements WebMvcConfigurer, SchedulingConfigurer
 {
 	private static final Logger log = LoggerFactory.getLogger(AppConfig.class);
 	
@@ -151,26 +159,26 @@ public class AppConfig implements WebMvcConfigurer
 	}
 	
 	
-//	@Bean 
-//	public TareasProgramadas tareasProgramadasBean()
-//	{
-//		return new TareasProgramadas();
-//	}
-//	
-//	@Override
-//	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) 
-//	{
-//		taskRegistrar.setScheduler(poolScheduler());
-//	}
-//	@Bean(name="poolScheduler")
-//    public TaskScheduler poolScheduler() 
-//	{
-//        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-//        scheduler.setThreadNamePrefix("poolScheduler");
-//        scheduler.setPoolSize(15);
-//        scheduler.setWaitForTasksToCompleteOnShutdown(false);
-//        return scheduler;
-//    }
+	@Bean 
+	public TareasProgramadas tareasProgramadasBean()
+	{
+		return new TareasProgramadas();
+	}
+	
+	@Override
+	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) 
+	{
+		taskRegistrar.setScheduler(poolScheduler());
+	}
+	@Bean(name="poolScheduler")
+    public TaskScheduler poolScheduler() 
+	{
+        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setThreadNamePrefix("poolScheduler");
+        scheduler.setPoolSize(15);
+        scheduler.setWaitForTasksToCompleteOnShutdown(false);
+        return scheduler;
+    }
 	
 	public static void main(String[] args) 
 	{

@@ -10,4 +10,8 @@ public interface CapService {
 	public RegistrarPromocionesResponse getFindProm(RegistrarPromocionesRequest request);
 	
 	public String job();
+	
+	public String taskActualizaInfo();
+	
+	public RegistrarPromocionesResponse getPromosActivo();
 }

@@ -42,32 +42,65 @@ var capform = {};
 				}			
 		});
 		
+// 		$("#input-id").fileinput
+//     	({
+//     		showPreview : false,
+//     		allowedFileExtensions : [ 'xls','xlsx','ods'],
+//     		showCancel:false,
+//     		uploadUrl : system.currentApp.serviceUrl+ "upload/uploadFile",
+//     		ajaxSettings : {
+//     			beforeSend : function(xhr) 
+//     			{
+//     				xhr.setRequestHeader(system.Base64.decode(system.currentApp.token),
+//     									 system.Base64.decode(system.currentApp.type)+ 
+//     									 system.Base64.encode(atob(system.currentApp.key)+ 
+//     									 system.Base64.decode(system.currentApp.value)));
+//     			},
+//     		}
+//     	});
+		
+		$('#input-id').on('fileuploaded',function(event, data, previewId, index) {
+    		let response = data.response;
+    		
+    		if( response.status == 0 )
+    		{	
+    			console.log(response.fileName);
+    			promo.fileName = response.fileName;
+    		}
+    		else
+    		{
+    			psDialog.error(response.message);
+    		}	
+    	});
+		
 		if ( objToFocus != null) { objToFocus.focus(); }
 		
 		//Aqui validar... obj.valido = falsXe
-		let articulo = $("#id_ref_n").val();
-		let nomcorto = $("#nom_prom_str").val();
-		let descripcion = $("#desc_prom_str").val();
-		let fecinicio = $("#fec_ini_dt").val();
-		let descfecini = $("#desc_fecini_str").val();
-		let fecfin = $("#fec_fin_dt").val();
-		let descfecfin = $("#desc_fecfin_str").val();
-		let publish = $("#fec_upprom_dt").val();
-		let publishend = $("#fec_dwnprom_dt").val();
-		let nomarchivo = $("#nom_arch_str").val();
+		let articulo = $("#id_art_n").val();
+		let nomcorto = $("#cap_nom_str").val();
+		let descripcion = $("#cap_desc_str").val();
+		let fecinicio = $("#cap_fecini_dt").val();
+		let descfecini = $("#cap_descini_str").val();
+		let fecfin = $("#cap_fecfin_dt").val();
+		let descfecfin = $("#cap_descfin_str").val();
+		let publish = $("#cap_fecproini_dt").val();
+		let publishend = $("#cap_fecprofin_dt").val();
+		let nomarchivo = $("#cap_file_str").val();
+		let archivo	= $("#input-id").val();
 	
 		let data = [{ 
-			"id_ref_n": articulo, 
-			"nom_prom_str" : nomcorto, 
-			"desc_prom_str": descripcion, 
-			"fec_ini_dt": fecinicio,
-			"desc_fecini_str" : descfecini,	
-			"fec_fin_dt" : fecfin, 
-			"desc_fecfin_str" : descfecfin,
-			"fec_upprom_dt": publish, 
-			"fec_dwnprom_dt": publishend,
-			"nom_arch_str" : nomarchivo, 
-			"usr_cve_pstr" : system.user.usrCveStr}];
+			"id_art_n": articulo, 
+			"cap_nom_str" : nomcorto, 
+			"cap_desc_str": descripcion, 
+			"cap_fecini_dt": fecinicio,
+			"cap_descini_str" : descfecini,	
+			"cap_fecfin_dt" : fecfin, 
+			"cap_descfin_str" : descfecfin,
+			"cap_fecproini_dt": publish, 
+			"cap_fecprofin_dt": publishend,
+			"cap_file_str" : nomarchivo, 
+			"usr_cve_pstr" : system.user.usrCveStr,
+			"input-id" : archivo }];
 		obj.data = data;
 		console.log(obj)
 		return obj;
@@ -84,45 +117,45 @@ var capform = {};
 		dialog.getButton("btnOK").html("Registrar");
 		dialog.getButton("btnOK").click(onClickbtnOK);
 		
-		app.setDatePicker($("#fec_ini_dt"), $("#fec_fin_dt"));
-		app.setDatePicker($("#fec_upprom_dt"), $("#fec_dwnprom_dt"));
+		app.setDatePicker($("#cap_fecini_dt"), $("#cap_fecfin_dt"));
+		app.setDatePicker($("#cap_fecproini_dt"), $("#cap_fecprofin_dt"));
 
-		$("#desc_fecini_str").parent().parent().hide();
-		$("#desc_fecfin_str").parent().parent().hide();
-		$("#fec_ini_dt").prop('required', true);
-		$("#fec_fin_dt").prop('required', true);
+		$("#cap_descini_str").parent().parent().hide();
+		$("#cap_descfin_str").parent().parent().hide();
+		$("#cap_fecini_dt").prop('required', true);
+		$("#cap_fecfin_dt").prop('required', true);
 		
 		$("#spanFechaIni").click(function(){
 			let checkFecIni = $("#spanFechaIni").prop('checked');
 			if(checkFecIni == false) {
-				$("#desc_fecini_str").parent().parent().hide();
-				$("#desc_fecini_str").val("");
-				$("#desc_fecini_str").prop('required', false);
-				$("#fec_ini_dt").show();
-				$("#fec_ini_dt").prop('required', true);
+				$("#cap_descini_str").parent().parent().hide();
+				$("#cap_descini_str").val("");
+				$("#cap_descini_str").prop('required', false);
+				$("#cap_fecini_dt").show();
+				$("#cap_fecini_dt").prop('required', true);
 			} else {
-				$("#fec_ini_dt").hide();
-				$("#fec_ini_dt").val("");
-				$("#fec_ini_dt").prop('required', false);
-				$("#desc_fecini_str").parent().parent().show();
-				$("#desc_fecini_str").prop('required', true);
+				$("#cap_fecini_dt").hide();
+				$("#cap_fecini_dt").val("");
+				$("#cap_fecini_dt").prop('required', false);
+				$("#cap_descini_str").parent().parent().show();
+				$("#cap_descini_str").prop('required', true);
 			}			
 		});
 		
 		$("#spanFechaFin").click(function(){
 			let checkFecFin = $("#spanFechaFin").prop('checked');
 			if(checkFecFin == false) {
-				$("#desc_fecfin_str").parent().parent().hide();
-				$("#desc_fecfin_str").val("");
-				$("#desc_fecfin_str").prop('required', false);
-				$("#fec_fin_dt").show();
-				$("#fec_fin_dt").prop('required', true);
+				$("#cap_descfin_str").parent().parent().hide();
+				$("#cap_descfin_str").val("");
+				$("#cap_descfin_str").prop('required', false);
+				$("#cap_fecfin_dt").show();
+				$("#cap_fecfin_dt").prop('required', true);
 			} else {
-				$("#desc_fecfin_str").parent().parent().show();
-				$("#desc_fecfin_str").prop('required', true);
-				$("#fec_fin_dt").hide();
-				$("#fec_fin_dt").val("");
-				$("#fec_fin_dt").prop('required', false);
+				$("#cap_descfin_str").parent().parent().show();
+				$("#cap_descfin_str").prop('required', true);
+				$("#cap_fecfin_dt").hide();
+				$("#cap_fecfin_dt").val("");
+				$("#cap_fecfin_dt").prop('required', false);
 			}			
 		});
 		
@@ -142,7 +175,7 @@ $(document).ready( capform.init );
 			<span class="ps-span-error"></span>
 		</label>
 		<div class="col-sm-7">
-       		<input id="id_ref_n" name="id_ref_n" maxlength="10" required="required" class="form-control" value="">
+       		<input id="id_art_n" name="id_art_n" maxlength="10" required="required" class="form-control" value="">
     	</div>
 	</div>
 	<div class="form-group">
@@ -152,7 +185,7 @@ $(document).ready( capform.init );
 			<span class="ps-span-error"></span>
 		</label>
 		<div class="col-sm-7">
-       		<input id="nom_prom_str" name="nom_prom_str"  required="required" maxlength="20" class="form-control" value="">
+       		<input id="cap_nom_str" name="cap_nom_str"  required="required" maxlength="20" class="form-control" value="">
     	</div>
 	</div>
 	<div class="form-group">
@@ -162,7 +195,7 @@ $(document).ready( capform.init );
 			<span class="ps-span-error"></span>
 		</label>
 		<div class="col-sm-7">
-   			<input id="desc_prom_str" name="desc_prom_str" required="required" maxlength="90" class="form-control" value="">
+   			<input id="cap_desc_str" name="cap_desc_str" required="required" maxlength="90" class="form-control" value="">
 		</div>
 	</div>
 	<div class="form-group">
@@ -172,7 +205,7 @@ $(document).ready( capform.init );
 			<span class="ps-span-error"></span>
 		</label>
 		<div class="input-group date col-sm-8">
-			<input id="fec_ini_dt" name="fec_ini_dt" class="form-control">				
+			<input id="cap_fecini_dt" name="cap_fecini_dt" class="form-control">				
 				<span class="input-group-addon">
 					<input id="spanFechaIni" type="checkbox" class="">Sin Fecha de Inicio
 				</span>
@@ -185,7 +218,7 @@ $(document).ready( capform.init );
 			<span class="ps-span-error"></span>
 		</label>
 		<div class="col-sm-7">
-       		<input id="desc_fecini_str" name="desc_fecini_str" maxlength="90" class="form-control" value="">
+       		<input id="cap_descini_str" name="cap_descini_str" maxlength="90" class="form-control" value="">
     	</div>
 	</div>
 	<div class="form-group">
@@ -195,7 +228,7 @@ $(document).ready( capform.init );
 			<span class="ps-span-error"></span>
 		</label>
 		<div class="input-group date col-sm-8">
-			<input id="fec_fin_dt" name="fec_fin_dt" class="form-control">				
+			<input id="cap_fecfin_dt" name="cap_fecfin_dt" class="form-control">				
 				<span class="input-group-addon">
 					<input id="spanFechaFin" type="checkbox" class="">Sin Fecha de Fin
 				</span>
@@ -208,7 +241,7 @@ $(document).ready( capform.init );
 			<span class="ps-span-error"></span>
 		</label>
 		<div class="col-sm-6">
-       		<input id="desc_fecfin_str" name="desc_fecfin_str" maxlength="10" class="form-control" value="">
+       		<input id="cap_descfin_str" name="cap_descfin_str" maxlength="10" class="form-control" value="">
     	</div>
 	</div>
 	<div class="form-group">
@@ -218,7 +251,7 @@ $(document).ready( capform.init );
 			<span class="ps-span-error"></span>
 		</label>
 		<div class="col-sm-5">
-			<input id="fec_upprom_dt" name="fec_upprom_dt" required="required" class="form-control">
+			<input id="cap_fecproini_dt" name="cap_fecproini_dt" required="required" class="form-control">
 		</div>								
 	</div>
 	<div class="form-group">
@@ -228,7 +261,7 @@ $(document).ready( capform.init );
 			<span class="ps-span-error"></span>
 		</label>
 		<div class="col-sm-5">
-			<input id="fec_dwnprom_dt" name="fec_dwnprom_dt" required="required" class="form-control">
+			<input id="cap_fecprofin_dt" name="cap_fecprofin_dt" required="required" class="form-control">
 		</div>								
 	</div>
 	<div class="form-group">
@@ -238,7 +271,7 @@ $(document).ready( capform.init );
 			<span class="ps-span-error"></span>
 		</label>
 		<div class="col-sm-7">
-       		<input id="nom_arch_str" required="required" name="nom_arch_str" maxlength="90" class="form-control" value="">
+       		<input id="cap_file_str" required="required" name="cap_file_str" maxlength="90" class="form-control" value="">
     	</div>
 	</div>
 	<div class="form-group">
