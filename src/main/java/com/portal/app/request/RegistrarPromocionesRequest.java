@@ -3,6 +3,7 @@ package com.portal.app.request;
 import java.util.List;
 
 import com.portal.app.dto.CapRegPromDTO;
+import com.portal.app.dto.NewRegCapDto;
 
 public class RegistrarPromocionesRequest extends Request 
 {
@@ -11,6 +12,7 @@ public class RegistrarPromocionesRequest extends Request
 	private String usCvePstr;
 	private CapRegPromDTO capRegPromDto;
 	private List<CapRegPromDTO> listCapRegProm;
+	private List<NewRegCapDto> listNewReg;
 	
 	//Propiedades para Busqueda de Promociones
 	private Long	cap_id_n;
@@ -66,6 +68,14 @@ public class RegistrarPromocionesRequest extends Request
 
 	public void setCap_est_str(String cap_est_str) {
 		this.cap_est_str = cap_est_str;
+	}
+
+	public List<NewRegCapDto> getListNewReg() {
+		return listNewReg;
+	}
+
+	public void setListNewReg(List<NewRegCapDto> listNewReg) {
+		this.listNewReg = listNewReg;
 	}
 	
 }

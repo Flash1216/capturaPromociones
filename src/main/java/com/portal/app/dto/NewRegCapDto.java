@@ -1,18 +1,15 @@
 package com.portal.app.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Entity
-@Table(name = "CAP_REG_PROM")
-public class PromoRegDto implements Serializable
+@Table(name="CAP_REG_PROM")
+public class NewRegCapDto implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	//							
@@ -30,12 +27,10 @@ public class PromoRegDto implements Serializable
 	private Long	id_art_n;
 	
 	@Column
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MMM/yyyy", locale = "en")
-	private Date cap_fecini_dt;
+	private String cap_fecini_dt;
 	
 	@Column
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MMM/yyyy", locale = "en")
-	private Date cap_fecfin_dt;
+	private String cap_fecfin_dt;
 	
 	@Column
 	private String	cap_descini_str;
@@ -44,16 +39,13 @@ public class PromoRegDto implements Serializable
 	private String 	cap_descfin_str;
 	
 	@Column
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MMM/yyyy", locale = "en")
-	private Date cap_fecreg_dt;
+	private String cap_fecreg_dt;
 	
 	@Column
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MMM/yyyy", locale = "en")
-	private Date cap_fecproini_dt;
+	private String cap_fecproini_dt;
 	
 	@Column
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MMM/yyyy", locale = "en")
-	private Date cap_fecprofin_dt;
+	private String cap_fecprofin_dt;
 
 	@Column
 	private Long	id_usr_n;
@@ -66,11 +58,6 @@ public class PromoRegDto implements Serializable
 	
 	@Column
 	private String 	cap_ext_str;
-	
-	public PromoRegDto() 
-	{
-		
-	}
 
 	public Long getCap_id_n() {
 		return cap_id_n;
@@ -104,19 +91,19 @@ public class PromoRegDto implements Serializable
 		this.id_art_n = id_art_n;
 	}
 
-	public Date getCap_fecini_dt() {
+	public String getCap_fecini_dt() {
 		return cap_fecini_dt;
 	}
 
-	public void setCap_fecini_dt(Date cap_fecini_dt) {
+	public void setCap_fecini_dt(String cap_fecini_dt) {
 		this.cap_fecini_dt = cap_fecini_dt;
 	}
 
-	public Date getCap_fecfin_dt() {
+	public String getCap_fecfin_dt() {
 		return cap_fecfin_dt;
 	}
 
-	public void setCap_fecfin_dt(Date cap_fecfin_dt) {
+	public void setCap_fecfin_dt(String cap_fecfin_dt) {
 		this.cap_fecfin_dt = cap_fecfin_dt;
 	}
 
@@ -136,27 +123,27 @@ public class PromoRegDto implements Serializable
 		this.cap_descfin_str = cap_descfin_str;
 	}
 
-	public Date getCap_fecreg_dt() {
+	public String getCap_fecreg_dt() {
 		return cap_fecreg_dt;
 	}
 
-	public void setCap_fecreg_dt(Date cap_fecreg_dt) {
+	public void setCap_fecreg_dt(String cap_fecreg_dt) {
 		this.cap_fecreg_dt = cap_fecreg_dt;
 	}
 
-	public Date getCap_fecproini_dt() {
+	public String getCap_fecproini_dt() {
 		return cap_fecproini_dt;
 	}
 
-	public void setCap_fecproini_dt(Date cap_fecproini_dt) {
+	public void setCap_fecproini_dt(String cap_fecproini_dt) {
 		this.cap_fecproini_dt = cap_fecproini_dt;
 	}
 
-	public Date getCap_fecprofin_dt() {
+	public String getCap_fecprofin_dt() {
 		return cap_fecprofin_dt;
 	}
 
-	public void setCap_fecprofin_dt(Date cap_fecprofin_dt) {
+	public void setCap_fecprofin_dt(String cap_fecprofin_dt) {
 		this.cap_fecprofin_dt = cap_fecprofin_dt;
 	}
 

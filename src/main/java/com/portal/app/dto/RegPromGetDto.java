@@ -5,10 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -21,8 +18,6 @@ public class RegPromGetDto implements Serializable
 	private static final long serialVersionUID = 1L;
 	//							
 	@Id
-	@SequenceGenerator(name="SEQ_CAP_REG_PROM_GEN", sequenceName="SEQ_CAP_REG_PROM") 
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="SEQ_CAP_REG_PROM_GEN")
 	@Column
 	private Long 	cap_id_n;	
 	

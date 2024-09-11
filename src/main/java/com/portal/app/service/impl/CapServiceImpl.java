@@ -9,9 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.Gson;
 import com.portal.app.dao.CapDao;
 import com.portal.app.dao.TaskPromoDao;
+import com.portal.app.dto.ConsecDto;
+import com.portal.app.dto.NewRegCapDto;
 import com.portal.app.dto.PromoRegDto;
 import com.portal.app.request.RegistrarPromocionesRequest;
 import com.portal.app.response.RegistrarPromocionesResponse;
@@ -37,8 +38,6 @@ public class CapServiceImpl implements CapService {
 	@Override
 	public RegistrarPromocionesResponse getFindProm(RegistrarPromocionesRequest request) {
 		RegistrarPromocionesResponse response = new RegistrarPromocionesResponse();
-		
-		log.debug("Response: " + new Gson().toJson(request));
 		
 		try
 		{
@@ -85,6 +84,33 @@ public class CapServiceImpl implements CapService {
 		}
 		
 		return responseProm;
+	}
+
+	@Override
+	public RegistrarPromocionesResponse setPromos(RegistrarPromocionesRequest request) 
+	{
+		RegistrarPromocionesResponse response = new RegistrarPromocionesResponse();
+		List<NewRegCapDto> listData = new ArrayList<>();
+		listData = request.getListNewReg();
+		try {
+			for(NewRegCapDto item : listData) 
+			{
+				response.setNewRegDto(dao.setPromos(item));
+				response.setMessage("Registro Agregado");
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			response.setMessage(e.getMessage());
+		}
+		
+		return response;
+	}
+
+	@Override
+	public ConsecDto getConsecutive() {
+		ConsecDto response = new ConsecDto();
+		response = dao.getConsecutive();
+		return response;
 	}
 
 }

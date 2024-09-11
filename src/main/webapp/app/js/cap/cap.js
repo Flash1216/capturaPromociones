@@ -95,7 +95,7 @@ var cap = {};
 		loading.open();
 		system.service({
 			encoded: false,
-			url: "registrarPromociones",
+			url: "loadPromociones",
 			data: { cap_id_n: "", cap_nom_str: "", cap_est_str: "" },
 			callback:(r) =>
 				{
@@ -113,7 +113,7 @@ var cap = {};
 		loading.open();
 		system.service({
 			encoded: false,
-			url: "registrarPromociones",
+			url: "loadPromociones",
 			data: { cap_id_n: "", cap_nom_str: textName, cap_est_str: filterEst },
 			callback:(r) => 
 				{

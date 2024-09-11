@@ -1,6 +1,8 @@
 package com.portal.app.dao.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -18,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.portal.app.dao.CapDao;
 import com.portal.app.dto.CapRegPromDTO;
+import com.portal.app.dto.ConsecDto;
+import com.portal.app.dto.NewRegCapDto;
 import com.portal.app.dto.RegPromGetDto;
 import com.portal.app.request.RegistrarPromocionesRequest;
 
@@ -102,6 +106,85 @@ public class CapDaoImpl implements CapDao {
 		result = crit.list();
 		log.debug("Datos Response: " + new Gson().toJson(result));
 		 
+		return result;
+	}
+
+	@Override
+	public ConsecDto getConsecutive() 
+	{
+		ConsecDto consec = new ConsecDto();
+		Transaction tx = null;
+		Session sess = null; 
+		 
+		try { 
+			StringBuilder qry = new StringBuilder(); 
+			qry.append(" SELECT SEQ_CAP_REG_PROM.NEXTVAL AS cap_id_n FROM DUAL " ); 
+			
+			log.debug("QRY: ", qry.toString());
+			sess = session.openSession(); 
+			tx = sess.beginTransaction(); 
+			consec = (ConsecDto) sess.createSQLQuery(qry.toString()).addEntity(ConsecDto.class).uniqueResult();
+			 
+			tx.commit(); 
+		} catch (Exception e) { 
+			log.error(e.getMessage(), e); 
+		} finally { 
+			if(sess != null) { 
+				sess.close(); 
+			} 
+		} 
+		
+		log.debug("Datos Response: " + new Gson().toJson(consec));
+		 
+		return consec;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public List<NewRegCapDto> setPromos(NewRegCapDto item) 
+	{
+		List<NewRegCapDto> result = new ArrayList<>();
+		log.info("DAO IMPL" + new Gson().toJson(item));
+		Date date = new Date();
+		String dateRegStr = "";
+		String dateIniStr = item.getCap_fecini_dt();
+        String dateFinStr = item.getCap_fecfin_dt();
+        String datePubIniStr = item.getCap_fecproini_dt();
+        String datePubFinStr = item.getCap_fecprofin_dt();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+		SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			dateRegStr = formatter.format(date);
+			datePubIniStr = formatter.format(originalFormat.parse(datePubIniStr));
+			datePubFinStr = formatter.format(originalFormat.parse(datePubFinStr));			
+			if(dateIniStr != "") {
+				dateIniStr = formatter.format(originalFormat.parse(dateIniStr));
+			}
+			if(dateFinStr != "") {
+				dateFinStr = formatter.format(originalFormat.parse(dateFinStr));
+			}
+			String file = item.getCap_file_str();
+			String ext 	= file.substring(file.lastIndexOf(".")+1).toLowerCase();
+			String fileName = file.substring(0, file.lastIndexOf(".")).toLowerCase();
+			
+			@SuppressWarnings("unused")
+			Criteria crit = session.getCurrentSession().createCriteria(NewRegCapDto.class);
+				item.setCap_id_n(item.getCap_id_n());
+				item.setCap_file_str(fileName);
+				item.setCap_ext_str(ext);
+				item.setCap_fecreg_dt(dateRegStr);
+				item.setCap_fecini_dt(dateIniStr);
+				item.setCap_fecfin_dt(dateFinStr);
+				item.setCap_fecproini_dt(datePubIniStr);
+				item.setCap_fecprofin_dt(datePubFinStr);
+				item.setCap_est_str("R");
+				session.getCurrentSession().save(item);
+				//session.getCurrentSession().saveOrUpdate(item);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log.error(e.getMessage(), e);
+			e.printStackTrace();
+		}
 		return result;
 	}
 	
